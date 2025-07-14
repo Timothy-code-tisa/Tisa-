@@ -22,3 +22,63 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+git branch -M main
+git remote add origin https://github.com/your-username/tisa.git
+git push -u origin main
+export default function Dashboard() { return <div className='p-4'>Dashboard</div>; }
+import { useRef, useState } from "react";
+
+export default function DesignStudio() {
+  const canvasRef = useRef(null);
+  const [color, setColor] = useState("#000000");
+  const [imgSrc, setImgSrc] = useState(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+
+  const handleImageUpload = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => setImgSrc(reader.result);
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const startDrawing = ({ nativeEvent }) => {
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.beginPath();
+    ctx.moveTo(nativeEvent.offsetX, nativeEvent.offsetY);
+    setIsDrawing(true);
+  };
+
+  const draw = ({ nativeEvent }) => {
+    if (!isDrawing) return;
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.lineTo(nativeEvent.offsetX, nativeEvent.offsetY);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  };
+
+  const endDrawing = () => setIsDrawing(false);
+
+  return (
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">TISA Editor</h2>
+      <input type="file" onChange={handleImageUpload} accept="image/*" />
+      <input type="color" value={color} onChange={(e) => setColor(e.target.value)} />
+      <canvas
+        ref={canvasRef}
+        onMouseDown={startDrawing}
+        onMouseMove={draw}
+        onMouseUp={endDrawing}
+        onMouseLeave={endDrawing}
+        width={500}
+        height={300}
+        className="border"
+      />
+    </div>
+  );
+}
+export default function EducationHub()
+ { return <div className='p-4'>Education Tools</div>; }export default function GameArcade() { return <div className='p-4'>Game Arcade</div>; }
+export default function Login() { return <div className='p-4'>Login Page</div>; }
+export default function Playstore() { return <div className='p-4'>Playstore</div>; }
+export default function Profile() { return <div className='p-4'>User Profile</div>; }
+export default function VideoEditor() { return <div className='p-4'>Video Editor</div>; }
